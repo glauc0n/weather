@@ -1,22 +1,17 @@
 from pymongo import MongoClient
 from datetime import datetime
 
-import api_call
-
 cluster = MongoClient('mongodb+srv://gloucon:test@clusto-oslu1.mongodb.net/test?retryWrites=true&w=majority')
 
-db = cluster['Test']
-collection = db['Test']
 
-now = datetime.now()
-dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+def m_push(weather_data):
+    db = cluster['Test']
+    collection = db['Test']
 
-weather_data = api_call.get_weather('San Francisco')
-location = weather_data['name']
-weather_data["_id"] = f'{location} {dt_string}'
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-collection.insert_one(weather_data)
+    location = weather_data['name']
+    weather_data["_id"] = f'{location} {dt_string}'
 
-#git test
-
-
+    collection.insert_one(weather_data)
