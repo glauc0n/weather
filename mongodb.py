@@ -8,15 +8,16 @@ cluster = MongoClient('mongodb+srv://gloucon:test@clusto-oslu1.mongodb.net/test?
 db = cluster['Test']
 collection = db['Test']
 
-now = datetime.now()
-dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-weather_data = api_call.get_weather('San Francisco')
-location = weather_data['name']
-weather_data["_id"] = f'{location} {dt_string}'
+def mongo_push(weather_data):
 
-collection.insert_one(weather_data)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-#git test
+    location = weather_data['name']
+    weather_data["_id"] = f'{location} {dt_string}'
+
+    collection.insert_one(weather_data)
+
 
 
