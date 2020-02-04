@@ -18,3 +18,7 @@ def mongo_push(weather_data):
     weather_data["_id"] = f'{location} {dt_string}'
 
     collection.insert_one(weather_data)
+
+# why wont this bullshit work?
+
+one = 41
